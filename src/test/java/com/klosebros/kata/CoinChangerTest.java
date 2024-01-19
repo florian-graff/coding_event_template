@@ -25,4 +25,13 @@ class CoinChangerTest {
         var coins  = coinChanger.getCoins(300);
         assertThat(coins).containsExactly(200, 100);
     }
+    @Test
+    void change_465() {
+        var coinChanger = new CoinChanger();
+        var coins  = coinChanger.getCoins(465);
+        assertThat(coins).containsExactly(200, 200, 50, 10 ,2, 1);
+    }
+
+
+
 }
