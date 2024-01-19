@@ -35,4 +35,22 @@ class CoinChangerTest {
         var expected = List.of(200,200,50,10,1);
         assertThat(coinChanger.changeCoins(461)).isEqualTo(expected);
     }
+
+    @Test
+    void testchange481_with75(){
+        CoinChanger coinChanger = new CoinChanger();
+        var validCoins = List.of(200, 100, 75, 50, 10, 2, 1);
+        var expected = List.of(200,200,75,2,2,2);
+        assertThat(coinChanger.changeCoins(481,validCoins)).isEqualTo(expected);
+    }
+
+    @Test
+    void testchange1597_with75(){
+        CoinChanger coinChanger = new CoinChanger();
+        var validCoins = List.of(1000, 200, 100, 75, 50, 10, 2, 1);
+        var expected = List.of(1000,200,200,100,75,10,10,2);
+        assertThat(coinChanger.changeCoins(1597,validCoins)).isEqualTo(expected);
+    }
+
+
 }
