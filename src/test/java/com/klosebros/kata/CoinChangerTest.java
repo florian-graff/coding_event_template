@@ -18,22 +18,26 @@ class CoinChangerTest {
 
     @Test
     void change_200() {
-        var coinChanger = new CoinChanger();
         var coins  = coinChanger.getCoins(200);
         assertThat(coins).containsExactly(200);
     }
 
     @Test
     void change_300() {
-        var coinChanger = new CoinChanger();
         var coins  = coinChanger.getCoins(300);
         assertThat(coins).containsExactly(200, 100);
     }
     @Test
     void change_463() {
-        var coinChanger = new CoinChanger();
         var coins  = coinChanger.getCoins(463);
         assertThat(coins).containsExactly(200, 200, 50, 10 ,2, 1);
+    }
+
+    @Test
+    void change_563() {
+        var coinChanger = new CoinChanger(List.of(500,200, 100, 50, 20, 10, 5, 2, 1));
+        var coins  = coinChanger.getCoins(563);
+        assertThat(coins).containsExactly(500, 50, 10 ,2, 1);
     }
 
 

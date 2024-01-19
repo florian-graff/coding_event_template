@@ -1,4 +1,4 @@
-//package com.klosebros.kata;
+package com.klosebros.kata;
 
 import java.util.ArrayList;
 import java.util.List;
