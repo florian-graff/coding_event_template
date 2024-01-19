@@ -14,4 +14,11 @@ class CoinChangerTest {
         var coins = new CoinChanger().getCoins(0);
         assertThat(coins).isEmpty();
     }
+
+    @Test
+    void change_200() {
+        var coinChanger = new CoinChanger();
+        var coins  = coinChanger.getCoins(200);
+        assertThat(coins).containsExactly(200);
+    }
 }
