@@ -5,18 +5,22 @@ import java.util.List;
 
 public class CoinChanger {
 
-    final  List<Integer> denominations ;
+    private final List<Integer> denominations;
+    private final CoinBank coinBank;
 
-    public CoinChanger(List<Integer> denominations) {
-        this.denominations =  denominations;
+    public CoinChanger(List<Integer> denominations, CoinBank coinBank) {
+        this.denominations = denominations;
+        this.coinBank = coinBank;
     }
 
     public List<Integer> getCoins(int amount) {
         var coins = new ArrayList<Integer>();
-        for (Integer denomination : denominations) {
-            if (amount >= denomination) {
-                calcCoins(amount, denomination, coins);
-                break;
+        if (coinBank.hasMoney(amount)) {
+            for (Integer denomination : denominations) {
+                if (amount >= denomination) {
+                    calcCoins(amount, denomination, coins);
+                    break;
+                }
             }
         }
         return coins;
