@@ -2,10 +2,7 @@ package com.klosebros.kata;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CoinChangerTest {
 
@@ -20,5 +17,12 @@ class CoinChangerTest {
         var coinChanger = new CoinChanger();
         var coins  = coinChanger.getCoins(200);
         assertThat(coins).containsExactly(200);
+    }
+
+    @Test
+    void change_300() {
+        var coinChanger = new CoinChanger();
+        var coins  = coinChanger.getCoins(300);
+        assertThat(coins).containsExactly(200, 100);
     }
 }
