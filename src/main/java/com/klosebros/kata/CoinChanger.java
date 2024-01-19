@@ -29,8 +29,9 @@ public class CoinChanger {
     }
 
     private void calcCoins(int amount, int x, ArrayList<Integer> coins) {
-        var coin = Math.abs(amount / x) * x;
-        coins.add(coin);
+        for (int i=0 ;i<amount / x;i++) {
+            coins.add(x);
+        }
         var rest = getCoins(amount % x);
         if (!rest.isEmpty()) {
             coins.addAll(rest);
