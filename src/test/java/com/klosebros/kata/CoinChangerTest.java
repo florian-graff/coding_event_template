@@ -2,13 +2,17 @@ package com.klosebros.kata;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CoinChangerTest {
 
+    private CoinChanger coinChanger = new CoinChanger(List.of(200, 100, 50, 20, 10, 5, 2, 1));
+
     @Test
     void change_0() {
-        var coins = new CoinChanger().getCoins(0);
+        var coins = coinChanger.getCoins(0);
         assertThat(coins).isEmpty();
     }
 
@@ -26,9 +30,9 @@ class CoinChangerTest {
         assertThat(coins).containsExactly(200, 100);
     }
     @Test
-    void change_465() {
+    void change_463() {
         var coinChanger = new CoinChanger();
-        var coins  = coinChanger.getCoins(465);
+        var coins  = coinChanger.getCoins(463);
         assertThat(coins).containsExactly(200, 200, 50, 10 ,2, 1);
     }
 
