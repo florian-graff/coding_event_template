@@ -18,4 +18,15 @@ public class BreadcrumbGeneratorTest {
         assertThat(breadcrumbGenerator.generateBreadcrumb(url,separator)).isEqualTo(expected);
 
     }
+
+    @ParameterizedTest
+    @ValueSource(strings={"mysite.com/very-long-url-to-make-a-silly-yet-meaningful-example/example.asp"})
+    void testBreadcumbGenerationWithLongPath(String url){
+        BreadcrumbGenerator breadcrumbGenerator = new BreadcrumbGenerator();
+        var separator = ":";
+        var expected =  "<a href=\"/\">HOME</a> : <a href=\"/very-long-url-to-make-a-silly-yet-meaningful-example/\">VLUMSYME</a> : <span class=\"active\">EXAMPLE</span>";
+
+        assertThat(breadcrumbGenerator.generateBreadcrumb(url,separator)).isEqualTo(expected);
+
+    }
 }

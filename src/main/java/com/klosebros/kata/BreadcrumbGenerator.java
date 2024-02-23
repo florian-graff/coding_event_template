@@ -1,6 +1,9 @@
 package com.klosebros.kata;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BreadcrumbGenerator {
@@ -15,8 +18,9 @@ public class BreadcrumbGenerator {
         var template = "<a href=\"/\">HOME</a> %s <a href=\"/%s/\">%s</a> %s <span class=\"active\">%s</span>";
 
         var cleanTarget = Optional.of(urlRecord.target).map(this::removeAnker).map(this::removeEnding).get();
+        //var cleanPath=
 
-        return template.formatted(separator, urlRecord.path, urlRecord.path.toUpperCase(), separator, cleanTarget.toUpperCase());
+        return template.formatted(separator, urlRecord.path, shortenPath(urlRecord.path), separator, cleanTarget.toUpperCase());
     }
 
     private String removeAnker(String target) {
@@ -33,5 +37,12 @@ public class BreadcrumbGenerator {
                 .map(s -> target.split("\\.")[0])
                 .findFirst()
                 .orElse(target);
+    }
+
+    private String shortenPath(String path){
+        var list = List.of("the","of","in","from","by","with","and", "or", "for", "to", "at", "a");
+        return Arrays.stream(path.split("-")).filter(s ->!list.contains(s))
+                .map(s-> s.substring(0,1).toUpperCase())
+                .collect(Collectors.joining());
     }
 }
