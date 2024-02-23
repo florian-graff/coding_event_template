@@ -11,7 +11,7 @@ public class BreadcrumbGeneratorTest {
         BreadcrumbGenerator breadcrumbGenerator = new BreadcrumbGenerator();
         var url = "www.baseurl.com/basic/example";
         var separator = ":";
-        var expected =  "\"<a href=\\\"/\\\">HOME</a> : <a href=\\\"/basic/\\\">BASIC</a> : <span class=\\\"active\\\">EXAMPLE</span>\"";
+        var expected =  "<a href=\"/\">HOME</a> : <a href=\"/basic/\">BASIC</a> : <span class=\"active\">EXAMPLE</span>";
 
         assertThat(breadcrumbGenerator.generateBreadcrumb(url,separator)).isEqualTo(expected);
     }
