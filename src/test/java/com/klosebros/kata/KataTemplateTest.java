@@ -38,4 +38,13 @@ class KataTemplateTest {
 
         assertThat(result).isEqualTo(expected);
     }
+
+    void createBreadCrumb() {
+        var kataTemplate = new KataTemplate();
+        var expected = "a href=\"/\">HOME</a> : <a href=\"/basic/\">BASIC</a> : <span class=\"active\">EXAMPLE</span>";
+        var given = "www.example.com/basic/example";
+        var result = kataTemplate.bc(given);
+
+        assertThat(result).isEqualTo(expected);
+    }
 }

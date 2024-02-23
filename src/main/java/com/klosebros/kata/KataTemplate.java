@@ -10,8 +10,8 @@ public class KataTemplate {
     public static final List<String> EXTS = List.of(".html", ".htm", ".asp", ".php");
 
     public String bc(String url) {
-        var splitedUrl = Arrays.stream(url.split("/")).collect(Collectors.toList());
 
+        var splitedUrl = Arrays.stream(url.split("/")).collect(Collectors.toList());
 
         var lastIndex = splitedUrl.size() - 1;
         EXTS.forEach(ext -> {
@@ -23,6 +23,10 @@ public class KataTemplate {
         if (splitedUrl.get(lastIndex).equals("index")) {
             splitedUrl.remove(lastIndex);
         }
+
+
+
+
 
         if (splitedUrl.size() == 1) {
             return "<a href=\"/\">HOME</a> : <a href=\"/\"></a> : <span class=\"active\"></span>";
