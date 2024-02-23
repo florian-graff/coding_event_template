@@ -8,7 +8,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class BreadcrumbGeneratorTest {
     @ParameterizedTest
-    @ValueSource(strings={"",".php",".htm", ".html", ".asp"})
+    @ValueSource(strings={"",".php",".htm", ".html", ".asp", "?Test", "#Test"})
     void testBreadcumbGeneration(String ending){
         BreadcrumbGenerator breadcrumbGenerator = new BreadcrumbGenerator();
         var url = "www.baseurl.com/basic/example" + ending;
