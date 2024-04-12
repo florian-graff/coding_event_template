@@ -84,6 +84,25 @@ class GameOfLifeTest {
 
     }
 
+    @Test
+    void livingCellWithTwoNeighborsLivesOn() {
+        //Given
+        String[][] gameMap = {
+                {"0", "X", "X", "0"},
+                {"0", "X", "0", "0"},
+                {"0", "0", "0", "0"},
+                {"0", "0", "0", "0"}
+        };
+
+        GameOfLife gameOfLife = new GameOfLife();
+
+        //WHEN
+        String[][] nextGeneration = gameOfLife.nextGeneration(gameMap);
+        //THEN
+        Assertions.assertThat(nextGeneration[0][1]).isEqualTo("X");
+
+    }
+
     private static String[][] createEmptyMap(final int rows, final int columns) {
         var emptyMap = new String[rows][columns];
         for (int y = 0; y < rows; y++) {

@@ -1,5 +1,7 @@
 package com.klosebros.kata;
 
+import java.util.Arrays;
+
 public class GameOfLife {
 
     public static final String DEAD_CELL = "0";
@@ -12,18 +14,23 @@ public class GameOfLife {
         var nextGen = new String[rows][columns];
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < columns; x++) {
-                nextGen[x][y] = calcNextCell(gameMap, y, x);
+                nextGen[y][x] = calcNextCell(gameMap, y, x);
             }
         }
-
+        for (final String[] row : nextGen) {
+            System.out.println(Arrays.toString(row));
+        }
         return nextGen;
     }
 
     private static String calcNextCell(final String[][] gameMap, final int y, final int x) {
         int neighborCount = countNeighbors(gameMap, y, x);
+        final var cell = gameMap[y][x];
         if (neighborCount == 0) {
             return DEAD_CELL;
         } else if (neighborCount == 3) {
+            return LIVE_CELL;
+        } else if (neighborCount == 2 && cell.equals("X")) {
             return LIVE_CELL;
         }
         return DEAD_CELL;
