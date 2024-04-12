@@ -103,6 +103,71 @@ class GameOfLifeTest {
 
     }
 
+    @Test
+    void livingCellWithMoreThanThreeNeighborsDies() {
+        //Given
+        String[][] gameMap = {
+                {"0", "X", "X", "0"},
+                {"0", "X", "X", "0"},
+                {"0", "X", "0", "0"},
+                {"0", "0", "0", "0"}
+        };
+
+        GameOfLife gameOfLife = new GameOfLife();
+
+        //WHEN
+        String[][] nextGeneration = gameOfLife.nextGeneration(gameMap);
+        //THEN
+        Assertions.assertThat(nextGeneration[1][1]).isEqualTo(DEAD_CELL);
+
+    }
+
+    @Test
+    void multiCellTest() {
+        //Given
+        String[][] gameMap = {
+                {"0", "X", "0"},
+                {"X", "X", "0"},
+                {"0", "0", "X"}
+        };
+
+        GameOfLife gameOfLife = new GameOfLife();
+
+        //WHEN
+        String[][] nextGeneration = gameOfLife.nextGeneration(gameMap);
+        //THEN
+        String[][] expected = {
+                {"X", "X", "0"},
+                {"X", "X", "X"},
+                {"0", "X", "0"}
+        };
+        Assertions.assertThat(nextGeneration).isEqualTo(expected);
+    }
+
+    @Test
+    void multiCellTestWithOverPopulation() {
+        //Given
+        String[][] gameMap = {
+                {"X", "X", "0"},
+                {"X", "X", "0"},
+                {"0", "0", "X"}
+        };
+
+        GameOfLife gameOfLife = new GameOfLife();
+
+        //WHEN
+        String[][] nextGeneration = gameOfLife.nextGeneration(gameMap);
+        //THEN
+        String[][] expected = {
+                {"X", "X", "0"},
+                {"X", "0", "X"},
+                {"0", "X", "0"}
+        };
+        Assertions.assertThat(nextGeneration).isEqualTo(expected);
+    }
+
+
+
     private static String[][] createEmptyMap(final int rows, final int columns) {
         var emptyMap = new String[rows][columns];
         for (int y = 0; y < rows; y++) {
