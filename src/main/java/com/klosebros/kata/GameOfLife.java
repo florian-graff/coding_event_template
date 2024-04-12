@@ -30,7 +30,7 @@ public class GameOfLife {
             return DEAD_CELL;
         } else if (neighborCount == 3) {
             return LIVE_CELL;
-        } else if (neighborCount == 2 && cell.equals("X")) {
+        } else if (neighborCount == 2 && cell.equals(LIVE_CELL)) {
             return LIVE_CELL;
         }
         return DEAD_CELL;
@@ -44,7 +44,7 @@ public class GameOfLife {
                     continue;
                 }
                 try {
-                    count += gameMap[i][j].equalsIgnoreCase("X") ? 1 : 0;
+                    count += gameMap[i][j].equalsIgnoreCase(LIVE_CELL) ? 1 : 0;
                 } catch (Exception e) {
                     //ignore
                 }
