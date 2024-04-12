@@ -20,4 +20,19 @@ class GameOfLifeTest {
 
         Assertions.assertThat(nextGeneration).isEqualTo(gameMap);
     }
+
+    @Test
+    void nothingIsBornOutOfNothingForAnySizeMap() {
+        String[][] gameMap = {
+                {"0", "0", "0", "0"},
+                {"0", "0", "0", "0"},
+                {"0", "0", "0", "0"},
+                {"0", "0", "0", "0"}
+        };
+
+        GameOfLife gameOfLife = new GameOfLife();
+        String[][] nextGeneration = gameOfLife.nextGeneration(gameMap);
+
+        Assertions.assertThat(nextGeneration).isEqualTo(gameMap);
+    }
 }
