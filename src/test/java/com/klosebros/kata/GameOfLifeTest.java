@@ -1,5 +1,6 @@
 package com.klosebros.kata;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -7,7 +8,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GameOfLifeTest {
 
     @Test
-    void deleteThisTest() {
-        assertThat(false).isTrue();
+    void nothingIsBornOutOfNothing() {
+        String[][] gameMap = {
+                {"0", "0", "0"},
+                {"0", "0", "0"},
+                {"0", "0", "0"}
+        };
+
+        GameOfLife gameOfLife = new GameOfLife();
+        String[][] nextGeneration = gameOfLife.nextGeneration(gameMap);
+
+        Assertions.assertThat(nextGeneration).isEqualTo(gameMap);
     }
 }
