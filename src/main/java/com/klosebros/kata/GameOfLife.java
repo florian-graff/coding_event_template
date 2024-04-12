@@ -33,6 +33,9 @@ public class GameOfLife {
         int count = 0;
         for (int i = y - 1; i <= y + 1; i++) {
             for (int j = x - 1; j <= x + 1; j++) {
+                if (i == y && j == x) {
+                    continue;
+                }
                 try {
                     count += gameMap[i][j].equalsIgnoreCase("X") ? 1 : 0;
                 } catch (Exception e) {
