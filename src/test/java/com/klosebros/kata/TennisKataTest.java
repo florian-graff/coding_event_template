@@ -26,5 +26,4 @@ class TennisKataTest {
         // Assert
         assertThat(score).isEqualTo("Love");
     }
-    
 }
