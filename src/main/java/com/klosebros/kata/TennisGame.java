@@ -13,6 +13,8 @@ public class TennisGame {
 
         if (scorePlayerOne == 0) {
             scoreValueOne = "Love";
+        } else if (scorePlayerOne == 1) {
+            scoreValueOne = "15";
         }
 
         if (scorePlayerTwo == 0) {
@@ -27,6 +29,10 @@ public class TennisGame {
     }
 
     public void pointToPlayerOne() {
-        scorePlayerOne = 1;
+        scorePlayerOne++;
+    }
+
+    public void pointToPlayerTwo() {
+        scorePlayerTwo++;
     }
 }

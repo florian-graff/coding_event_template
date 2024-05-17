@@ -24,6 +24,30 @@ class TennisKataTest {
         tennisGame.pointToPlayerOne();
         var score = tennisGame.getScore();
         // Assert
-        assertThat(score).isEqualTo("Love");
+        assertThat(score).isEqualTo("15 Love");
+    }
+
+    @Test
+    void testBothPlayerHave15Points() {
+        // Arrange
+        var tennisGame = new TennisGame();
+        // Act
+        tennisGame.pointToPlayerOne();
+        tennisGame.pointToPlayerTwo();
+        var score = tennisGame.getScore();
+        // Assert
+        assertThat(score).isEqualTo("15 All");
+    }
+
+    @Test
+    void testPlayer1Have30AndPlayer2Have0Points() {
+        // Arrange
+        var tennisGame = new TennisGame();
+        // Act
+        tennisGame.pointToPlayerOne();
+        tennisGame.pointToPlayerOne();
+        var score = tennisGame.getScore();
+        // Assert
+        assertThat(score).isEqualTo("30 Love");
     }
 }
