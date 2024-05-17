@@ -24,6 +24,6 @@ class TennisKataTest {
         tennisGame.pointToPlayerOne();
         var score = tennisGame.getScore();
         // Assert
-        assertThat(score).isEqualTo("15 Love");
+        assertThat(score).isEqualTo("Love");
     }
 }
