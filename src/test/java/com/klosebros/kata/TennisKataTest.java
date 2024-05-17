@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TennisKataTest {
+class TennisKataTest {
 
     @Test
     void testStartMatch() {
@@ -13,6 +13,17 @@ public class TennisKataTest {
         // Act
         var score = tennisGame.getScore();
         // Assert
-        assertThat(score).isEqualTo("Love Love");
+        assertThat(score).isEqualTo("Love All");
+    }
+
+    @Test
+    void testFirstPointToPlayerOne() {
+        // Arrange
+        var tennisGame = new TennisGame();
+        // Act
+        tennisGame.pointToPlayerOne();
+        var score = tennisGame.getScore();
+        // Assert
+        assertThat(score).isEqualTo("15 Love");
     }
 }
