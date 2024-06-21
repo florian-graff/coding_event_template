@@ -1,19 +1,25 @@
 package com.klosebros.kata;
 
+import java.util.List;
+
+
 public class RomanNumerals {
+
+    private final List<NumberNumeralPair> numberNumeralPairs = List.of(
+            new NumberNumeralPair(1000, "M"),
+            new NumberNumeralPair(100, "C"));
+
     String convert(int number) {
         if (number < 5) {
            return "I".repeat(number);
         }
-        final int multiplicator = number / 1000;
 
-        if (multiplicator > 0) {
-            return "M".repeat(multiplicator);
-        }
+        for (var numberNumeralPair : numberNumeralPairs) {
+            final int multiplicator = number / numberNumeralPair.number();
 
-        final int multiplicator100 = number / 100;
-        if (multiplicator100 > 0 && multiplicator100 <= 4) {
-            return "C".repeat(multiplicator100);
+            if (multiplicator > 0) {
+                return numberNumeralPair.numeral().repeat(multiplicator);
+            }
         }
 
         return singleDigitToNumeral(number);
@@ -30,5 +36,4 @@ public class RomanNumerals {
             default -> throw new RuntimeException("Fehler ;-)");
         };
     }
-
 }
