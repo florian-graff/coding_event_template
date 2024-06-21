@@ -35,6 +35,14 @@ class RomanNumeralsTest {
     }
 
 
+    @Test
+    void testThirty() {
+        var romanNumerals = new RomanNumerals();
+        var result = romanNumerals.convert(40);
+        assertThat(result).isEqualTo("XXXX");
+    }
+
+
     @ParameterizedTest
     @CsvSource({"1,I","5,V","10,X","50,L","100,C","500,D","1000,M"})
     void testAllSymbols(int number, String numeral) {

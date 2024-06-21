@@ -7,17 +7,16 @@ public class RomanNumerals {
 
     private final List<NumberNumeralPair> numberNumeralPairs = List.of(
             new NumberNumeralPair(1000, "M"),
-            new NumberNumeralPair(100, "C"));
+            new NumberNumeralPair(100, "C"),
+            new NumberNumeralPair(10, "X"),
+            new NumberNumeralPair(1, "I"));
 
     String convert(int number) {
-        if (number < 5) {
-           return "I".repeat(number);
-        }
 
         for (var numberNumeralPair : numberNumeralPairs) {
             final int multiplicator = number / numberNumeralPair.number();
 
-            if (multiplicator > 0) {
+            if (multiplicator > 0 && multiplicator <= 4) {
                 return numberNumeralPair.numeral().repeat(multiplicator);
             }
         }
