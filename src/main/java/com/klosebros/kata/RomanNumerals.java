@@ -3,8 +3,10 @@ package com.klosebros.kata;
 public class RomanNumerals {
 
     String convert(int number) {
+        if (number < 5) {
+           return "I".repeat(number);
+        }
         return switch (number) {
-            case 1 -> "I";
             case 5 -> "V";
             case 10 -> "X";
             case 50 -> "L";
