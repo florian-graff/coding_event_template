@@ -17,11 +17,10 @@ class RomanNumeralsTest {
 
     @ParameterizedTest
     @CsvSource({"1,I","5,V","10,X","50,L","100,C","500,D","1000,M"})
-    @Test
-    void testAllSymbols() {
+    void testAllSymbols(int number, String numeral) {
         var romanNumerals = new RomanNumerals();
-        var result = romanNumerals.convert(1);
-        assertThat(result).isEqualTo("I");
+        var result = romanNumerals.convert(number);
+        assertThat(result).isEqualTo(numeral);
     }
 
     
