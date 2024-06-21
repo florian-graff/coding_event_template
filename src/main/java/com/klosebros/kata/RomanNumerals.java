@@ -1,6 +1,7 @@
 package com.klosebros.kata;
 
 public class RomanNumerals {
+    //new array  = [1000,];
 
     String convert(int number) {
         if (number < 5) {

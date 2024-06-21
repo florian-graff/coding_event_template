@@ -20,6 +20,14 @@ class RomanNumeralsTest {
         assertThat(result).isEqualTo("I");
     }
 
+    @Test
+    void testTwoThousand() {
+        var romanNumerals = new RomanNumerals();
+        var result = romanNumerals.convert(2_000);
+        assertThat(result).isEqualTo("MM");
+    }
+
+
     @ParameterizedTest
     @CsvSource({"1,I","5,V","10,X","50,L","100,C","500,D","1000,M"})
     void testAllSymbols(int number, String numeral) {
