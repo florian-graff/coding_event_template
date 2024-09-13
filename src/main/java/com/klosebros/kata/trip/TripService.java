@@ -13,15 +13,15 @@ public class TripService {
 	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
 		List<Trip> tripList = new ArrayList<Trip>();
 		User loggedUser = getLoggedUser();
-		boolean isFriend = false;
+		boolean isLoggedUserFriend = false;
 		if (loggedUser != null) {
 			for (User friend : user.getFriends()) {
 				if (friend.equals(loggedUser)) {
-					isFriend = true;
+					isLoggedUserFriend = true;
 					break;
 				}
 			}
-			if (isFriend) {
+			if (isLoggedUserFriend) {
 				tripList = TripDAO.findTripsByUser(user);
 			}
 			return tripList;

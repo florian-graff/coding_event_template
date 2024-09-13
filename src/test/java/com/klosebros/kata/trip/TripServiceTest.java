@@ -29,6 +29,17 @@ class TripServiceTest {
 
         assertThat(tripService.getTripsByUser(user)).isEmpty();
     }
+
+    @Test
+    void shouldReturnEmptyListIfUserHasAFriend() {
+        // Given
+        var user = new User();
+        TripService tripService = new TripServiceTestable(user);
+
+        tripService.getTripsByUser(user);
+
+        assertThat(tripService.getTripsByUser(new User())).isEmpty();
+    }
 }
 
 class TripServiceTestable extends TripService {
