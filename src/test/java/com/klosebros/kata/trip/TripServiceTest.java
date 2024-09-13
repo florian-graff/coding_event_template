@@ -13,16 +13,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class TripServiceTest {
 
     TripService tripService;
+    User user;
+
+    User loggedUser = new User();
 
     @BeforeEach
     void setUp() {
-        tripService = new TripServiceTestable(new User());
+        tripService = new TripServiceTestable(loggedUser);
+        user = new User();
     }
 
     @Test
     void userWithNoFriendsReturnsEmptyTripList() {
-        User user = new User();
-
         List<Trip> tripsByUser = tripService.getTripsByUser(user);
 
         assertThat(tripsByUser).isEmpty();
@@ -30,8 +32,7 @@ class TripServiceTest {
 
     @Test
     void userWithFriendsReturnsTripList() {
-        User user = new User();
-        user.addFriend(user);
+        user.addFriend(loggedUser);
         user.addTrip(new Trip());
 
         List<Trip> tripsByUser = tripService.getTripsByUser(user);
@@ -42,7 +43,7 @@ class TripServiceTest {
 
     @Test
     void exceptionThrownIfNoUserLoggedIn() {
-        User user = new User();
+        ((TripServiceTestable) tripService).setUser(null);
 
         assertThatThrownBy(() -> tripService.getTripsByUser(user)).isInstanceOf(UserNotLoggedInException.class);
     }
