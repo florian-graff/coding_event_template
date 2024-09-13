@@ -14,7 +14,7 @@ class TripServiceTest {
     @Test
     void shouldThrowExceptionIfLoggedUserIsNull() {
         // Given
-        TripService tripService = new TripServiceTestable(null, List.of());
+        TripService tripService = new TripServiceTestable(null);
         var user = new User();
 
         // When
@@ -25,7 +25,7 @@ class TripServiceTest {
     void shouldReturnEmptyListIfUserHasNoFriends() {
         // Given
         var user = new User();
-        TripService tripService = new TripServiceTestable(user, List.of());
+        TripService tripService = new TripServiceTestable(user);
 
         assertThat(tripService.getTripsByUser(user)).isEmpty();
     }
@@ -34,7 +34,7 @@ class TripServiceTest {
     void shouldReturnEmptyListIfUserHasANonLoggedFriend() {
         // Given
         var loggedUser = new User();
-        TripService tripService = new TripServiceTestable(loggedUser, List.of());
+        TripService tripService = new TripServiceTestable(loggedUser);
 
         User userToAsk = new User();
         userToAsk.addFriend(new User());
@@ -47,9 +47,10 @@ class TripServiceTest {
         // Given
         var loggedUser = new User();
         var trip = new Trip();
-        TripService tripService = new TripServiceTestable(loggedUser, List.of(trip));
+        TripService tripService = new TripServiceTestable(loggedUser);
 
         User userToAsk = new User();
+        userToAsk.addTrip(trip);
         userToAsk.addFriend(loggedUser);
 
         assertThat(tripService.getTripsByUser(userToAsk)).containsExactly(trip);
@@ -59,11 +60,9 @@ class TripServiceTest {
 class TripServiceTestable extends TripService {
 
     private final User loggedUser;
-    private final List<Trip> trips;
 
-    TripServiceTestable(User loggedUser, List<Trip> trips) {
+    TripServiceTestable(User loggedUser) {
         this.loggedUser = loggedUser;
-        this.trips = trips;
     }
 
     @Override
@@ -71,8 +70,7 @@ class TripServiceTestable extends TripService {
         return loggedUser;
     }
 
-    @Override
     List<Trip> findTripsByUser(User user) {
-        return trips;
+        return user.trips();
     }
 }
