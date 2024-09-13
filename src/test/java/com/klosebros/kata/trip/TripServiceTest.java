@@ -12,7 +12,7 @@ class TripServiceTest {
 
     @Test
     void getTripsByUserNoFriends() {
-        TripService tripService = new TripServiceTestable();
+        TripService tripService = new TripServiceTestable(new User());
         User user = new User();
 
         List<Trip> tripsByUser = tripService.getTripsByUser(user);
@@ -23,12 +23,13 @@ class TripServiceTest {
 
     @Test
     void getTripsByUserIsFriend() {
-        TripService tripService = new TripServiceTestable();
         User user = new User();
+        user.addFriend(user);
+        TripService tripService = new TripServiceTestable(user);
 
         List<Trip> tripsByUser = tripService.getTripsByUser(user);
 
-        assertThat(tripsByUser).isEmpty();
+        assertThat(tripsByUser).isNotEmpty();
 
     }
 }
