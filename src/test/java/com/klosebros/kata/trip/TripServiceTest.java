@@ -4,6 +4,8 @@ import com.klosebros.kata.exception.UserNotLoggedInException;
 import com.klosebros.kata.user.User;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,20 +27,31 @@ class TripServiceTest {
         var user = new User();
         TripService tripService = new TripServiceTestable(user);
 
-        tripService.getTripsByUser(user);
-
         assertThat(tripService.getTripsByUser(user)).isEmpty();
     }
 
     @Test
-    void shouldReturnEmptyListIfUserHasAFriend() {
+    void shouldReturnEmptyListIfUserHasANonLoggedFriend() {
         // Given
-        var user = new User();
-        TripService tripService = new TripServiceTestable(user);
+        var loggedUser = new User();
+        TripService tripService = new TripServiceTestable(loggedUser);
 
-        tripService.getTripsByUser(user);
+        User userToAsk = new User();
+        userToAsk.addFriend(new User());
 
-        assertThat(tripService.getTripsByUser(new User())).isEmpty();
+        assertThat(tripService.getTripsByUser(userToAsk)).isEmpty();
+    }
+
+    @Test
+    void shouldReturnEmptyListIfUserIsLoggedFriend() {
+        // Given
+        var loggedUser = new User();
+        TripService tripService = new TripServiceTestable(loggedUser);
+
+        User userToAsk = new User();
+        userToAsk.addFriend(loggedUser);
+
+        assertThat(tripService.getTripsByUser(userToAsk)).isNotEmpty();
     }
 }
 
@@ -53,5 +66,10 @@ class TripServiceTestable extends TripService {
     @Override
     User getLoggedUser() {
         return loggedUser;
+    }
+
+    @Override
+    List<Trip> findTripsByUser(User user) {
+        return super.findTripsByUser(user);
     }
 }
