@@ -11,13 +11,24 @@ import static org.junit.jupiter.api.Assertions.*;
 class TripServiceTest {
 
     @Test
-    void getTripsByUser() {
-        TripService tripService = new TripService();
+    void getTripsByUserNoFriends() {
+        TripService tripService = new TripServiceTestable();
         User user = new User();
 
         List<Trip> tripsByUser = tripService.getTripsByUser(user);
 
-        assertThat(tripsByUser).isNotEmpty();
+        assertThat(tripsByUser).isEmpty();
+
+    }
+
+    @Test
+    void getTripsByUserIsFriend() {
+        TripService tripService = new TripServiceTestable();
+        User user = new User();
+
+        List<Trip> tripsByUser = tripService.getTripsByUser(user);
+
+        assertThat(tripsByUser).isEmpty();
 
     }
 }
