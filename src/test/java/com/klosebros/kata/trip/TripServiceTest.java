@@ -14,7 +14,7 @@ class TripServiceTest {
     @Test
     void shouldThrowExceptionIfLoggedUserIsNull() {
         // Given
-        TripService tripService = new TripServiceTestable(null);
+        TripService tripService = new TripServiceTestable(null, List.of());
         var user = new User();
 
         // When
@@ -25,7 +25,7 @@ class TripServiceTest {
     void shouldReturnEmptyListIfUserHasNoFriends() {
         // Given
         var user = new User();
-        TripService tripService = new TripServiceTestable(user);
+        TripService tripService = new TripServiceTestable(user, List.of());
 
         assertThat(tripService.getTripsByUser(user)).isEmpty();
     }
@@ -34,7 +34,7 @@ class TripServiceTest {
     void shouldReturnEmptyListIfUserHasANonLoggedFriend() {
         // Given
         var loggedUser = new User();
-        TripService tripService = new TripServiceTestable(loggedUser);
+        TripService tripService = new TripServiceTestable(loggedUser, List.of());
 
         User userToAsk = new User();
         userToAsk.addFriend(new User());
@@ -43,24 +43,27 @@ class TripServiceTest {
     }
 
     @Test
-    void shouldReturnEmptyListIfUserIsLoggedFriend() {
+    void shouldReturnNotEmptyListIfUserIsLoggedFriend() {
         // Given
         var loggedUser = new User();
-        TripService tripService = new TripServiceTestable(loggedUser);
+        var trip = new Trip();
+        TripService tripService = new TripServiceTestable(loggedUser, List.of(trip));
 
         User userToAsk = new User();
         userToAsk.addFriend(loggedUser);
 
-        assertThat(tripService.getTripsByUser(userToAsk)).isNotEmpty();
+        assertThat(tripService.getTripsByUser(userToAsk)).containsExactly(trip);
     }
 }
 
 class TripServiceTestable extends TripService {
 
     private final User loggedUser;
+    private final List<Trip> trips;
 
-    TripServiceTestable(User loggedUser) {
+    TripServiceTestable(User loggedUser, List<Trip> trips) {
         this.loggedUser = loggedUser;
+        this.trips = trips;
     }
 
     @Override
@@ -70,6 +73,6 @@ class TripServiceTestable extends TripService {
 
     @Override
     List<Trip> findTripsByUser(User user) {
-        return super.findTripsByUser(user);
+        return trips;
     }
 }
