@@ -1,7 +1,44 @@
 package com.klosebros.kata.parrot;
 
-public interface Parrot {
-    double getSpeed();
+public class Parrot  {
 
-    String getCry();
+    private final ParrotTypeEnum type;
+    private final int numberOfCoconuts;
+    private final double voltage;
+    private final boolean isNailed;
+
+    public Parrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
+        this.type = type;
+        this.numberOfCoconuts = numberOfCoconuts;
+        this.voltage = voltage;
+        this.isNailed = isNailed;
+    }
+
+    public double getSpeed() {
+        return switch (type) {
+            case EUROPEAN -> getBaseSpeed();
+            case AFRICAN -> Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts);
+            case NORWEGIAN_BLUE -> (isNailed) ? 0 : getBaseSpeed(voltage);
+        };
+    }
+
+    public double getBaseSpeed(double voltage) {
+        return Math.min(24.0, voltage * getBaseSpeed());
+    }
+
+    private double getLoadFactor() {
+        return 9.0;
+    }
+
+    double getBaseSpeed() {
+        return 12.0;
+    }
+
+    public String getCry() {
+        return switch (type) {
+            case EUROPEAN -> "Sqoork!";
+            case AFRICAN -> "Sqaark!";
+            case NORWEGIAN_BLUE -> voltage > 0 ? "Bzzzzzz" : "...";
+        };
+    }
 }
