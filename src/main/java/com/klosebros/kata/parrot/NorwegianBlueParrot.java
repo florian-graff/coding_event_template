@@ -9,4 +9,10 @@ public class NorwegianBlueParrot extends Parrot {
     public String getCry() {
         return voltage > 0 ? "Bzzzzzz" : "...";
     }
+
+    @Override
+    public double getSpeed() {
+        return (isNailed) ? 0 : getBaseSpeed(voltage);
+    }
+
 }
