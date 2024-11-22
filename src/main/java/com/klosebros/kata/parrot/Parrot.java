@@ -1,6 +1,8 @@
 package com.klosebros.kata.parrot;
 
-public class Parrot {
+import static com.klosebros.kata.parrot.ParrotTypeEnum.*;
+
+public abstract class Parrot {
 
     private final ParrotTypeEnum type;
     private final int numberOfCoconuts;
@@ -16,9 +18,10 @@ public class Parrot {
 
     public static Parrot createParrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
 
-        if (type == ParrotTypeEnum.EUROPEAN) return new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
-
-        return new Parrot(type, numberOfCoconuts, voltage, isNailed);
+        if (type == EUROPEAN) return new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
+        if (type == AFRICAN) return new AfricanParrot(type, numberOfCoconuts, voltage, isNailed);
+        if (type == NORWEGIAN_BLUE) return new NorwegianBlueParrot(type, numberOfCoconuts, voltage, isNailed);
+        throw new IllegalStateException("Unexpected parrot type");
     }
 
     public double getSpeed() {
@@ -29,7 +32,7 @@ public class Parrot {
         };
     }
 
-    private double getBaseSpeed(double voltage) {
+    protected double getBaseSpeed(double voltage) {
         return Math.min(24.0, voltage * getBaseSpeed());
     }
 
@@ -37,7 +40,7 @@ public class Parrot {
         return 9.0;
     }
 
-    private double getBaseSpeed() {
+    protected double getBaseSpeed() {
         return 12.0;
     }
 
