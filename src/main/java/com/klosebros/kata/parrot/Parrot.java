@@ -4,13 +4,14 @@ import static com.klosebros.kata.parrot.ParrotTypeEnum.*;
 
 public abstract class Parrot {
 
-    private final ParrotTypeEnum type;
+    public static final double LOAD_FACTOR = 9.0;
+    public static final double BASE_SPEED = 12.0;
+    public static final double MINIMUM_BASE_SPEED = 24.0;
     protected final int numberOfCoconuts;
     protected final double voltage;
     protected final boolean isNailed;
 
-    protected Parrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
-        this.type = type;
+    protected Parrot(int numberOfCoconuts, double voltage, boolean isNailed) {
         this.numberOfCoconuts = numberOfCoconuts;
         this.voltage = voltage;
         this.isNailed = isNailed;
@@ -18,31 +19,25 @@ public abstract class Parrot {
 
     public static Parrot createParrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
 
-        if (type == EUROPEAN) return new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
-        if (type == AFRICAN) return new AfricanParrot(type, numberOfCoconuts, voltage, isNailed);
-        if (type == NORWEGIAN_BLUE) return new NorwegianBlueParrot(type, numberOfCoconuts, voltage, isNailed);
+        if (type == EUROPEAN) return new EuropeanParrot(numberOfCoconuts, voltage, isNailed);
+        if (type == AFRICAN) return new AfricanParrot(numberOfCoconuts, voltage, isNailed);
+        if (type == NORWEGIAN_BLUE) return new NorwegianBlueParrot(numberOfCoconuts, voltage, isNailed);
         throw new IllegalStateException("Unexpected parrot type");
     }
 
     public abstract double getSpeed();
 
     protected double getBaseSpeed(double voltage) {
-        return Math.min(24.0, voltage * getBaseSpeed());
+        return Math.min(MINIMUM_BASE_SPEED, voltage * getBaseSpeed());
     }
 
     protected double getLoadFactor() {
-        return 9.0;
+        return LOAD_FACTOR;
     }
 
     protected double getBaseSpeed() {
-        return 12.0;
+        return BASE_SPEED;
     }
 
-    public String getCry() {
-        return switch (type) {
-            case EUROPEAN -> "Sqoork!";
-            case AFRICAN -> "Sqaark!";
-            case NORWEGIAN_BLUE -> voltage > 0 ? "Bzzzzzz" : "...";
-        };
-    }
+    public abstract String getCry();
 }
