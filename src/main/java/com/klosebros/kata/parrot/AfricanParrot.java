@@ -2,8 +2,11 @@ package com.klosebros.kata.parrot;
 
 public class AfricanParrot extends Parrot {
 
+    private final int numberOfCoconuts;
+
     protected AfricanParrot(int numberOfCoconuts, double voltage) {
-        super(numberOfCoconuts, voltage);
+        super(voltage);
+        this.numberOfCoconuts = numberOfCoconuts;
     }
 
     @Override
