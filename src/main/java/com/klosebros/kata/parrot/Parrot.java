@@ -7,11 +7,18 @@ public class Parrot {
     private final double voltage;
     private final boolean isNailed;
 
-    public Parrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
+    protected Parrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
         this.type = type;
         this.numberOfCoconuts = numberOfCoconuts;
         this.voltage = voltage;
         this.isNailed = isNailed;
+    }
+
+    public static Parrot createParrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
+
+        if (type == ParrotTypeEnum.EUROPEAN) return new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
+
+        return new Parrot(type, numberOfCoconuts, voltage, isNailed);
     }
 
     public double getSpeed() {
