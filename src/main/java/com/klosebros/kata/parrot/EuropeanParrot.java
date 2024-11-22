@@ -12,10 +12,6 @@ public class EuropeanParrot extends Parrot {
 
     @Override
     public String getCry() {
-        return switch (type) {
-            case EUROPEAN -> "Sqoork!";
-            case AFRICAN -> "Sqaark!";
-            case NORWEGIAN_BLUE -> voltage > 0 ? "Bzzzzzz" : "...";
-        };
+        return "Sqoork!";
     }
 }

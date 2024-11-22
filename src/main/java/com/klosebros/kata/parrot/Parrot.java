@@ -26,7 +26,7 @@ public abstract class Parrot  {
         return switch (type) {
             case AFRICAN -> Math.max(0, getBaseSpeed() - getLoadFactor() * numberOfCoconuts);
             case NORWEGIAN_BLUE -> (isNailed) ? 0 : getBaseSpeed(voltage);
-            default -> throw new IllegalStateException("Should not be reached");A
+            default -> throw new IllegalStateException("Should not be reached");
         };
     }
 
