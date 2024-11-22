@@ -1,8 +1,9 @@
 package com.klosebros.kata.parrot;
 
 public class EuropeanParrot extends Parrot {
-    public EuropeanParrot(ParrotTypeEnum type, int numberOfCoconuts, double voltage, boolean isNailed) {
-        super(type, numberOfCoconuts, voltage, isNailed);
+
+    public EuropeanParrot(ParrotTypeEnum type, double voltage, boolean isNailed) {
+        super(type, voltage);
     }
 
     @Override
