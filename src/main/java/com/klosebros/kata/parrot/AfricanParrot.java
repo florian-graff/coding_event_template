@@ -1,8 +1,9 @@
 package com.klosebros.kata.parrot;
 
 public class AfricanParrot extends Parrot {
-    protected AfricanParrot(int numberOfCoconuts, double voltage, boolean isNailed) {
-        super(numberOfCoconuts, voltage, isNailed);
+
+    protected AfricanParrot(int numberOfCoconuts, double voltage) {
+        super(numberOfCoconuts, voltage);
     }
 
     @Override

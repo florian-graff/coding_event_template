@@ -1,8 +1,11 @@
 package com.klosebros.kata.parrot;
 
 public class NorwegianBlueParrot extends Parrot {
+    protected final boolean isNailed;
+
     protected NorwegianBlueParrot(int numberOfCoconuts, double voltage, boolean isNailed) {
-        super(numberOfCoconuts, voltage, isNailed);
+        super(numberOfCoconuts, voltage);
+        this.isNailed = isNailed;
     }
 
     @Override
