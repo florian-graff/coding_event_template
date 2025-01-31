@@ -3,11 +3,25 @@ package com.klosebros.kata;
 import java.util.Objects;
 
 public class TennisGame1 implements TennisGame {
-    
+
     private int mScore1 = 0;
     private int mScore2 = 0;
 
-    public TennisGame1() {
+    enum EqualAll {
+        LOVE_ALL(0,"Love-All"),
+        FIFTEEN_ALL(1,"Fifteen-All"),
+        THIRTY_ALL(2, "Thirty-All"),
+        DEUCE(3, "Deuce");
+
+        public final String value;
+        private final int rank;
+
+
+        EqualAll(int rank, String value) {
+            this.value = value;
+            this.rank = rank;
+        }
+
     }
 
     public void wonPoint(String playerName) {
@@ -18,16 +32,11 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        var score = new StringBuilder();
-        var tempScore=0;
+        StringBuilder score ;
+        int tempScore;
         if (mScore1 == mScore2)
         {
-            score = new StringBuilder(switch (mScore1) {
-                case 0 -> "Love-All";
-                case 1 -> "Fifteen-All";
-                case 2 -> "Thirty-All";
-                default -> "Deuce";
-            });
+            score = calculatePlayerScoreByEqualPoints();
         }
         else if (mScore1 >=4 || mScore2 >=4)
         {
@@ -39,6 +48,7 @@ public class TennisGame1 implements TennisGame {
         }
         else
         {
+            score = new StringBuilder();
             for (var i = 1; i<3; i++)
             {
                 if (i==1) tempScore = mScore1;
@@ -53,5 +63,17 @@ public class TennisGame1 implements TennisGame {
             }
         }
         return score.toString();
+    }
+
+    private StringBuilder calculatePdlayerScoreByEqualPoints() {
+        StringBuilder score;
+        var equalAll = EqualAll.valueOf(mScore1);
+        score = new StringBuilder(; {
+            case 0 -> "Love-All";
+            case 1 -> "Fifteen-All";
+            case 2 -> "Thirty-All";
+            default -> "Deuce";
+        });
+        return score;
     }
 }
