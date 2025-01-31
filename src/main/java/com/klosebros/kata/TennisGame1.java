@@ -67,9 +67,6 @@ public class TennisGame1 implements TennisGame {
     }
 
     private StringBuilder calculatePlayerScoreByEqualPoints() {
-        if (mScore1 > 2) {
-            return new StringBuilder(EqualAll.DEUCE.value);
-        }
-        return new StringBuilder(EqualAll.values()[mScore1].value);
+        return new StringBuilder(mScore1 > 2 ? EqualAll.DEUCE.value : EqualAll.valueOf(mScore1).value);
     }
 }
