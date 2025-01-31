@@ -1,6 +1,5 @@
 package com.klosebros.kata;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class TennisGame1 implements TennisGame {
@@ -9,23 +8,17 @@ public class TennisGame1 implements TennisGame {
     private int mScore2 = 0;
 
     enum EqualAll {
-        LOVE_ALL(0, "Love-All"),
-        FIFTEEN_ALL(1, "Fifteen-All"),
-        THIRTY_ALL(2, "Thirty-All"),
-        DEUCE(3, "Deuce");
+        LOVE_ALL("Love-All"),
+        FIFTEEN_ALL("Fifteen-All"),
+        THIRTY_ALL("Thirty-All"),
+        DEUCE("Deuce");
 
         public final String value;
-        private final int rank;
 
-
-        EqualAll(int rank, String value) {
+        EqualAll(String value) {
             this.value = value;
-            this.rank = rank;
         }
 
-        public static EqualAll valueOf(int score) {
-            return Arrays.stream(values()).findFirst().filter(value -> value.rank == score).orElseThrow();
-        }
     }
 
     public void wonPoint(String playerName) {
@@ -41,32 +34,45 @@ public class TennisGame1 implements TennisGame {
         if (mScore1 == mScore2) {
             score = calculatePlayerScoreByEqualPoints();
         } else if (mScore1 >= 4 || mScore2 >= 4) {
-            var minusResult = mScore1 - mScore2;
-            if (minusResult == 1) score = new StringBuilder("Advantage player1");
-            else if (minusResult == -1) score = new StringBuilder("Advantage player2");
-            else if (minusResult >= 2) score = new StringBuilder("Win for player1");
-            else score = new StringBuilder("Win for player2");
+            score = calculateTieBreak();
         } else {
-            score = new StringBuilder();
-            for (var i = 1; i < 3; i++) {
-                if (i == 1) tempScore = mScore1;
-                else {
-                    score.append("-");
-                    tempScore = mScore2;
-                }
-                switch (tempScore) {
-                    case 0 -> score.append("Love");
-                    case 1 -> score.append("Fifteen");
-                    case 2 -> score.append("Thirty");
-                    case 3 -> score.append("Forty");
-                    default -> throw new IllegalStateException("Unexpected value: " + tempScore);
-                }
-            }
+            score = calculateDefaultCase();
         }
         return score.toString();
     }
 
+    private StringBuilder calculateTieBreak() {
+        StringBuilder score;
+        var minusResult = mScore1 - mScore2;
+        if (minusResult == 1) score = new StringBuilder("Advantage player1");
+        else if (minusResult == -1) score = new StringBuilder("Advantage player2");
+        else if (minusResult >= 2) score = new StringBuilder("Win for player1");
+        else score = new StringBuilder("Win for player2");
+        return score;
+    }
+
+    private StringBuilder calculateDefaultCase() {
+        int tempScore;
+        StringBuilder score;
+        score = new StringBuilder();
+        for (var i = 1; i < 3; i++) {
+            if (i == 1) tempScore = mScore1;
+            else {
+                score.append("-");
+                tempScore = mScore2;
+            }
+            switch (tempScore) {
+                case 0 -> score.append("Love");
+                case 1 -> score.append("Fifteen");
+                case 2 -> score.append("Thirty");
+                case 3 -> score.append("Forty");
+                default -> throw new IllegalStateException("Unexpected value: " + tempScore);
+            }
+        }
+        return score;
+    }
+
     private StringBuilder calculatePlayerScoreByEqualPoints() {
-        return new StringBuilder(mScore1 > 2 ? EqualAll.DEUCE.value : EqualAll.valueOf(mScore1).value);
+        return new StringBuilder(mScore1 > 2 ? EqualAll.DEUCE.value : EqualAll.values()[mScore1].value);
     }
 }
