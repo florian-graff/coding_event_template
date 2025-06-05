@@ -11,7 +11,7 @@ public class PetrolCar extends Vehicle {
 
   @Override
   public void chargeBattery() {
-    throw new UnsupportedOperationException("A petrol car cannot be recharged");
+    throw new UnsupportedOperationException("A petrol car cannot be charged");
   }
 
   public int fuelTankLevel() {
