@@ -5,8 +5,10 @@ public class ThreeDimensionalPoint {
     protected int lat;
     protected int lon;
 
-    public ThreeDimensionalPoint(int lat, int lon, int alt) {
+    public ThreeDimensionalPoint(int alt, int lat, int lon) {
         this.alt = alt;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public int getAlt() {
