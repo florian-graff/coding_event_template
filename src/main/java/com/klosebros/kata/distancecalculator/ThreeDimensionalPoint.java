@@ -1,7 +1,7 @@
 package com.klosebros.kata.distancecalculator;
 
-public class ThreeDimensionalPoint extends MultiDimensionalPoint{
-    private int alt;
+public class ThreeDimensionalPoint extends TwoDimensionalPoint {
+    private final int alt;
 
     public ThreeDimensionalPoint(int lat, int lon, int alt) {
         super(lat, lon);
@@ -12,14 +12,26 @@ public class ThreeDimensionalPoint extends MultiDimensionalPoint{
         return alt;
     }
 
-    @Override
-    public double calculateDistance(MultiDimensionalPoint other) {
-        if (!(other instanceof ThreeDimensionalPoint)) {
-            throw new IllegalArgumentException("Cannot calculate distance to a non-3D point");
-        }
+    public double calculateDistance(ThreeDimensionalPoint other) {
         var dx = this.getLat() - other.getLat();
         var dy = this.getLon() - other.getLon();
-        var dz = this.alt - ((ThreeDimensionalPoint) other).getAlt();
+        var dz = this.getAlt() - other.getAlt();
         return Math.sqrt(dx * dx + dy * dy + dz * dz);
+    }
+
+    public int getLon() {
+        return lon;
+    }
+
+    public void setLon(int lon) {
+        this.lon = lon;
+    }
+
+    public int getLat() {
+        return lat;
+    }
+
+    public void setLat(int lat) {
+        this.lat = lat;
     }
 }
