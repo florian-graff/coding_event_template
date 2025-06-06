@@ -39,8 +39,10 @@ class DistanceCalculatorTest {
         DistanceCalculator distanceCalculator = new DistanceCalculator();
         var p1 = new TwoDimensionalPoint(0, 0);
         var p2 = new ThreeDimensionalPoint(1, 1, 1);
+        var p3 = new ThreeDimensionalPoint(0, 0, 0);
         double distance = distanceCalculator.calculate(p1, p2);
-        assertThat(distance).isEqualTo(1.4142135623730951);
+        assertThat(distance).isEqualTo(1.7320508075688772);
+        assertThat(distanceCalculator.calculate(p2, p3)).isEqualTo(distance);
     }
 
     @Test
@@ -49,7 +51,7 @@ class DistanceCalculatorTest {
         var p1 = new TwoDimensionalPoint(0, 0);
         var p2 = new ThreeDimensionalPoint(1, 1, 1);
         double distance = distanceCalculator.calculate(p2, p1);
-        assertThat(distance).isEqualTo(1.4142135623730951);
+        assertThat(distance).isEqualTo(1.7320508075688772);
     }
 
     @Test
@@ -59,8 +61,8 @@ class DistanceCalculatorTest {
         var p2 = new ThreeDimensionalPoint(1, 1, 1);
         var p3 = new ThreeDimensionalPoint(1, 1, 2);
 
-        AssertionsForClassTypes.assertThat(distanceCalculator.calculate(p1,p2)).isEqualTo(0);
+        AssertionsForClassTypes.assertThat(distanceCalculator.calculate(p1,p2)).isEqualTo(1);
         AssertionsForClassTypes.assertThat(distanceCalculator.calculate(p2,p3)).isEqualTo(1);
-        AssertionsForClassTypes.assertThat(distanceCalculator.calculate(p1,p3)).isEqualTo(1); // This is a bit weird, but it is correct according to the current implementation
+        AssertionsForClassTypes.assertThat(distanceCalculator.calculate(p1,p3)).isEqualTo(2);
     }
 }
