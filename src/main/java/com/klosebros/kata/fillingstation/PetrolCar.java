@@ -1,17 +1,12 @@
 package com.klosebros.kata.fillingstation;
 
-public class PetrolCar extends Vehicle {
+public class PetrolCar extends Vehicle implements NeedsFuel {
   private static final int FUEL_TANK_FULL = 100;
   private int fuelTankLevel = 0;
 
   @Override
   public void fillUpWithFuel() {
     this.fuelTankLevel = FUEL_TANK_FULL;
-  }
-
-  @Override
-  public void chargeBattery() {
-    throw new UnsupportedOperationException("A petrol car cannot be charged");
   }
 
   public int fuelTankLevel() {

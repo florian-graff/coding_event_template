@@ -1,14 +1,9 @@
 package com.klosebros.kata.fillingstation;
 
-public class ElectricCar extends Vehicle{
+public class ElectricCar extends Vehicle implements NeedsElectricity {
 
     private static final int BATTERY_FULL = 100;
     private int batteryLevel;
-
-    @Override
-    public void fillUpWithFuel() {
-        throw new UnsupportedOperationException("It's an electric car");
-    }
 
     @Override
     public void chargeBattery() {

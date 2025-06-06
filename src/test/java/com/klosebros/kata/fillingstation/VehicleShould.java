@@ -29,11 +29,16 @@ public class VehicleShould {
   }
 
 
-  public class TestableVehicle extends Vehicle{
+  public class TestableVehicle extends Vehicle implements NeedsFuel, NeedsElectricity {
 
     @Override
     public void fillUpWithFuel() {
 
+    }
+
+    @Override
+    public int fuelTankLevel() {
+      return 0;
     }
 
     @Override
