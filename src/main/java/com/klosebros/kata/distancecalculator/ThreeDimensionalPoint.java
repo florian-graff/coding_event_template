@@ -11,4 +11,15 @@ public class ThreeDimensionalPoint extends TwoDimensionalPoint{
     public int getAlt() {
         return alt;
     }
+
+    @Override
+    public double calculateDistance(TwoDimensionalPoint other) {
+        if (!(other instanceof ThreeDimensionalPoint)) {
+            throw new IllegalArgumentException("Cannot calculate distance to a non-3D point");
+        }
+        var dx = this.getLat() - other.getLat();
+        var dy = this.getLon() - other.getLon();
+        var dz = this.alt - ((ThreeDimensionalPoint) other).getAlt();
+        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+    }
 }
