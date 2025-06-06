@@ -1,7 +1,6 @@
 package com.klosebros.kata.distancecalculator;
 
 public class TwoDimensionalPoint {
-
     protected int lat;
     protected int lon;
 
@@ -16,12 +15,6 @@ public class TwoDimensionalPoint {
 
     public int getLon() {
         return lon;
-    }
-
-    public double calculateDistance(TwoDimensionalPoint other) {
-        var dx = this.lat - other.lat;
-        var dy = this.lon - other.lon;
-        return Math.sqrt(dx * dx + dy * dy);
     }
 
     public void setLon(int lon) {

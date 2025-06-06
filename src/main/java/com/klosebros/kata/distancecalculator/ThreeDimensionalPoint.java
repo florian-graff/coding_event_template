@@ -1,22 +1,16 @@
 package com.klosebros.kata.distancecalculator;
 
-public class ThreeDimensionalPoint extends TwoDimensionalPoint {
+public class ThreeDimensionalPoint {
     private final int alt;
+    protected int lat;
+    protected int lon;
 
     public ThreeDimensionalPoint(int lat, int lon, int alt) {
-        super(lat, lon);
         this.alt = alt;
     }
 
     public int getAlt() {
         return alt;
-    }
-
-    public double calculateDistance(ThreeDimensionalPoint other) {
-        var dx = this.getLat() - other.getLat();
-        var dy = this.getLon() - other.getLon();
-        var dz = this.getAlt() - other.getAlt();
-        return Math.sqrt(dx * dx + dy * dy + dz * dz);
     }
 
     public int getLon() {
