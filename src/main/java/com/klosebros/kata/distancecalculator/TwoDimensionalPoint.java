@@ -1,12 +1,9 @@
 package com.klosebros.kata.distancecalculator;
 
-public class TwoDimensionalPoint {
-    private int lat;
-    private int lon;
+public class TwoDimensionalPoint extends MultiDimensionalPoint {
 
     public TwoDimensionalPoint(int lat, int lon) {
-        this.lat = lat;
-        this.lon = lon;
+        super(lat, lon);
     }
 
     public int getLat() {
@@ -17,7 +14,8 @@ public class TwoDimensionalPoint {
         return lon;
     }
 
-    public double calculateDistance(TwoDimensionalPoint other) {
+    @Override
+    public double calculateDistance(MultiDimensionalPoint other) {
         var dx = this.lat - other.lat;
         var dy = this.lon - other.lon;
         return Math.sqrt(dx * dx + dy * dy);

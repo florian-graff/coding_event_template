@@ -1,6 +1,6 @@
 package com.klosebros.kata.distancecalculator;
 
-public class ThreeDimensionalPoint extends TwoDimensionalPoint{
+public class ThreeDimensionalPoint extends MultiDimensionalPoint{
     private int alt;
 
     public ThreeDimensionalPoint(int lat, int lon, int alt) {
@@ -13,7 +13,7 @@ public class ThreeDimensionalPoint extends TwoDimensionalPoint{
     }
 
     @Override
-    public double calculateDistance(TwoDimensionalPoint other) {
+    public double calculateDistance(MultiDimensionalPoint other) {
         if (!(other instanceof ThreeDimensionalPoint)) {
             throw new IllegalArgumentException("Cannot calculate distance to a non-3D point");
         }
