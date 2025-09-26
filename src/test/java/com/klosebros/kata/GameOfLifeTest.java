@@ -70,4 +70,36 @@ class GameOfLifeTest {
         boolean[][] result = GameOfLife.nextGeneration(start);
         assertThat(result[1][1]).isTrue(); // Zentrale Zelle wird lebendig
     }
+
+    /**
+     * Testet das toroidale Grid: Zelle am Rand zählt Nachbarn auf der gegenüberliegenden Seite.
+     */
+    @Test
+    void wrapAroundLebendeZelleAmRandHatNachbarnAufGegenueberliegenderSeite() {
+        boolean[][] start = {
+                {false, false, true},
+                {false, false, false},
+                {true, false, false}
+        };
+        // Zelle oben rechts (0,2) hat Nachbarn unten rechts (2,2), oben links (0,0) und unten links (2,0) im Wrap-around
+        // Wir setzen die Zelle oben rechts lebendig und die Zelle unten links lebendig
+        // Nach Regel 1: Weniger als 2 lebende Nachbarn -> stirbt
+        boolean[][] result = GameOfLife.nextGeneration(start);
+        assertThat(result[0][2]).isFalse(); // Zelle stirbt
+    }
+
+    /**
+     * Testet das toroidale Grid: Tote Zelle am Rand wird durch Nachbarn auf der gegenüberliegenden Seite lebendig.
+     */
+    @Test
+    void wrapAroundToteZelleAmRandWirdDurchGegenueberliegendeNachbarnLebendig() {
+        boolean[][] start = {
+                {false, false, true},
+                {false, false, false},
+                {true, false, true}
+        };
+        // Zelle oben links (0,0) hat drei lebende Nachbarn: oben rechts (0,2), unten links (2,0), unten rechts (2,2)
+        boolean[][] result = GameOfLife.nextGeneration(start);
+        assertThat(result[0][0]).isTrue(); // Zelle wird lebendig
+    }
 }
