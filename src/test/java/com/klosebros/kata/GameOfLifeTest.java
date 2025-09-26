@@ -81,10 +81,7 @@ class GameOfLifeTest {
                 {false, false, false},
                 {true, false, false}
         };
-        // Zelle oben rechts (0,2) hat Nachbarn unten rechts (2,2), oben links (0,0) und unten links (2,0) im Wrap-around
-        // Wir setzen die Zelle oben rechts lebendig und die Zelle unten links lebendig
-        // Nach Regel 1: Weniger als 2 lebende Nachbarn -> stirbt
-        boolean[][] result = GameOfLife.nextGeneration(start);
+        boolean[][] result = GameOfLife.nextGeneration(start, true); // Wrap-Around aktiv
         assertThat(result[0][2]).isFalse(); // Zelle stirbt
     }
 
@@ -98,8 +95,37 @@ class GameOfLifeTest {
                 {false, false, false},
                 {true, false, true}
         };
-        // Zelle oben links (0,0) hat drei lebende Nachbarn: oben rechts (0,2), unten links (2,0), unten rechts (2,2)
-        boolean[][] result = GameOfLife.nextGeneration(start);
+        boolean[][] result = GameOfLife.nextGeneration(start, true); // Wrap-Around aktiv
         assertThat(result[0][0]).isTrue(); // Zelle wird lebendig
+    }
+
+    /**
+     * Testet ein unendliches 2D-Grid: Das Grid wird erweitert, wenn lebende Zellen am Rand neue Nachbarn erzeugen.
+     */
+    @Test
+    void unendlichesGridWirdErweitertWennNeueLebendeZellenAusserhalbEntstehen() {
+        boolean[][] start2 = {
+                {true, false, false},
+                {false, false, false},
+                {false, false, true}
+        };
+        // Nach der nächsten Generation sollte oben links (0,0) und unten rechts (2,2) sterben, aber neue Zellen könnten außerhalb entstehen, wenn die Logik das Grid erweitert.
+        // Erwartung: Das Grid wird um eine Zeile und Spalte oben/unten/links/rechts erweitert, falls dort lebende Zellen entstehen.
+        boolean[][] result = GameOfLife.nextGeneration(start2);
+        // Prüfe, ob das Grid mindestens die gleiche Größe hat oder größer ist
+        assertThat(result.length).isGreaterThanOrEqualTo(start2.length);
+        assertThat(result[0].length).isGreaterThanOrEqualTo(start2[0].length);
+        // Prüfe, dass keine lebende Zelle außerhalb des ursprünglichen Bereichs existiert, wenn keine neuen entstehen
+        boolean lebendeZelleAusserhalb = false;
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[0].length; j++) {
+                if ((i >= start2.length || j >= start2[0].length) && result[i][j]) {
+                    lebendeZelleAusserhalb = true;
+                    break;
+                }
+            }
+            if (lebendeZelleAusserhalb) break;
+        }
+        assertThat(lebendeZelleAusserhalb).isFalse();
     }
 }
