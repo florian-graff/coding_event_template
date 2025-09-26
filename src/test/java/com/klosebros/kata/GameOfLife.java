@@ -28,7 +28,7 @@ public class GameOfLife {
 
         for (int r = row - 1; r <= row + 1; r++) {
             for (int c = col - 1; c <= col + 1; c++) {
-                if (r == row && c == col) continue; // Überspringe die Zelle selbst
+                if (r == row && c == col) continue; // ueberspringe die Zelle selbst
                 if (r >= 0 && r < rows && c >= 0 && c < cols && grid[r][c]) {
                     count++;
                 }
