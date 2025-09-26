@@ -32,4 +32,25 @@ public class GameOfLifeTest {
 
     }
 
+
+    /*
+         Jede lebende Zelle mit mehr als drei lebenden Nachbarn stirbt (Überbevölkerung).
+          */
+    @Test
+    void testOverpopulation() {
+        GameOfLife game = new GameOfLife();
+        boolean[][] board = {
+                {true, true, true},
+                {true, true, true},
+                {true, true, true}
+        };
+        boolean[][] expected = {
+                {true, false, true},
+                {false, false, false},
+                {true, false, true}
+        };
+        boolean[][] result = game.nextGeneration(board);
+        assert java.util.Arrays.deepEquals(expected, result);
+    }
+
 }
