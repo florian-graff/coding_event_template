@@ -1,6 +1,6 @@
 package com.klosebros.kata;
 
-public class game   {
+public class KataTemplate {
 
 
 }
