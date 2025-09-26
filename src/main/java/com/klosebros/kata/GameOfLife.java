@@ -6,24 +6,30 @@ package com.klosebros.kata;
  * <p>Cells are represented as booleans: {@code true} = alive, {@code false} = dead.
  * The board is a rectangular {@code boolean[][]} where {@code board[row][col]} is the cell
  * at the given row and column. The next generation is computed according to the standard
- * Game of Life rules:
- *
- * <ul>
- *   <li>An alive cell with 2 or 3 alive neighbors stays alive.</li>
- *   <li>An alive cell with fewer than 2 or more than 3 alive neighbors dies.</li>
- *   <li>A dead cell with exactly 3 alive neighbors becomes alive.</li>
- * </ul>
- *
- * <p>Cells outside the board are considered dead. The original board is not modified;
- * a new board with the next generation state is returned. If the provided board is
- * {@code null} or empty, an empty board is returned.
+ * Game of Life rules.
  */
 public class GameOfLife {
 
     /**
-     * Default constructor.
+     * Wenn true, wird ein toroidales (wrap-around) Grid verwendet.
      */
-    public GameOfLife() { }
+    private final boolean toroidal;
+
+    /**
+     * Default constructor: nicht-toroidal (das bisherige Verhalten).
+     */
+    public GameOfLife() {
+        this(false);
+    }
+
+    /**
+     * Konstruktor, um toroidales Verhalten zu aktivieren.
+     *
+     * @param toroidal true für Wrap-Around, false für Standard (Ränder sind tot)
+     */
+    public GameOfLife(boolean toroidal) {
+        this.toroidal = toroidal;
+    }
 
     /**
      * Computes the next generation for a given board.
@@ -57,14 +63,7 @@ public class GameOfLife {
      * Counts alive neighbors for the cell at {@code (row, col)}.
      *
      * <p>Neighbors are the up to eight surrounding cells. Cells outside the board bounds
-     * are considered dead. If {@code (row, col)} is out of bounds, 0 is returned.
-     *
-     * @param board the board to inspect
-     * @param row the row index of the target cell
-     * @param col the column index of the target cell
-     * @param rows total number of rows in {@code board}
-     * @param cols total number of columns in {@code board}
-     * @return the number of alive neighboring cells (0..8)
+     * are considered dead (unless toroidal==true, then wrap-around is used). If {@code (row, col)} is out of bounds, 0 is returned.
      */
     private int countAliveNeighbors(boolean[][] board, int row, int col, int rows, int cols) {
         if (row < 0 || row >= rows || col < 0 || col >= cols) {
@@ -79,8 +78,17 @@ public class GameOfLife {
                 }
                 int neighborRow = row + deltaRow;
                 int neighborCol = col + deltaCol;
-                if (neighborRow >= 0 && neighborRow < rows && neighborCol >= 0 && neighborCol < cols && board[neighborRow][neighborCol]) {
-                    aliveNeighbors++;
+                if (toroidal) {
+                    // Wrap-around mit Modulo (positiv halten, daher +rows/cols vor %)
+                    neighborRow = (neighborRow + rows) % rows;
+                    neighborCol = (neighborCol + cols) % cols;
+                    if (board[neighborRow][neighborCol]) {
+                        aliveNeighbors++;
+                    }
+                } else {
+                    if (neighborRow >= 0 && neighborRow < rows && neighborCol >= 0 && neighborCol < cols && board[neighborRow][neighborCol]) {
+                        aliveNeighbors++;
+                    }
                 }
             }
         }
