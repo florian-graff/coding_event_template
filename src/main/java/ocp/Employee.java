@@ -2,9 +2,10 @@ package ocp;
 
 public class Employee {
 
-    private int salary;
-    private int bonus;
-    private EmployeeType type;
+    private final int salary;
+    private final int bonus;
+    private final EmployeeType type;
+    private final PayStrategy payStrategy = new PayStrategy();
 
     Employee(int salary, int bonus, EmployeeType type) {
         this.salary = salary;
@@ -13,14 +14,7 @@ public class Employee {
     }
 
     public int payAmount() {
-        switch (this.type) {
-            case ENGINEER:
-                return salary;
-            case MANAGER:
-                return salary + bonus;
-            default:
-                return 0;
-        }
+        return payStrategy.calculatePay(salary, bonus, type);
     }
 
 }
