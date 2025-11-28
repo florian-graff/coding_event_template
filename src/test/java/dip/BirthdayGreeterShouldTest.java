@@ -2,7 +2,6 @@ package dip;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -16,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class BirthdayGreeterShould {
+class BirthdayGreeterShouldTest {
     private static final int CURRENT_MONTH = 7;
     private static final int CURRENT_DAY_OF_MONTH = 9;
     private static final MonthDay TODAY = MonthDay.of(CURRENT_MONTH, CURRENT_DAY_OF_MONTH);
@@ -26,13 +25,13 @@ class BirthdayGreeterShould {
     @Mock
     private Clock clock;
 
-    @InjectMocks
     private BirthdayGreeter birthdayGreeter;
 
     private final ByteArrayOutputStream consoleContent = new ByteArrayOutputStream();
 
     @Test
     void should_send_greeting_email_to_employee() {
+        birthdayGreeter = new BirthdayGreeter(employeeRepository, clock, new EmailSenderMock());
         System.setOut(new PrintStream(consoleContent));
         given(clock.monthDay()).willReturn(TODAY);
         Employee employee = anEmployee().build();
