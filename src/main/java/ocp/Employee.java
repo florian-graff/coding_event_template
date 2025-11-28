@@ -1,26 +1,13 @@
 package ocp;
 
-public class Employee {
+public abstract class Employee {
 
-    private int salary;
-    private int bonus;
-    private EmployeeType type;
+    protected final int salary;
 
-    Employee(int salary, int bonus, EmployeeType type) {
+    Employee(int salary) {
         this.salary = salary;
-        this.bonus = bonus;
-        this.type = type;
     }
 
-    public int payAmount() {
-        switch (this.type) {
-            case ENGINEER:
-                return salary;
-            case MANAGER:
-                return salary + bonus;
-            default:
-                return 0;
-        }
-    }
+    abstract int payAmount();
 
 }

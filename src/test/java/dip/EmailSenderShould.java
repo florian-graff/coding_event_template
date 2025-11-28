@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class emailSenderShould {
+class EmailSenderShould {
     private final ByteArrayOutputStream consoleContent = new ByteArrayOutputStream();
     @Test
     void writEmailOnStdOut() {
