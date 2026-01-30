@@ -6,7 +6,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PricingEngineTest {
     @Test
-    void deleteThisTest() {
-        assertThat(false).isTrue();
+    void calculateEmptyOrder() {
+        var pricingEngine = new PricingEngine();
+        var price = pricingEngine.calculatePrice(new Order());
+        assertThat(price).isEqualTo(0.0);
     }
 }
