@@ -40,10 +40,18 @@ class PricingEngineTest {
     }
 
     @Test
-    void calculateRegularInternationalOderByStandard() {
+    void calculateRegularInternationalZeroWeightOderByStandard() {
         var pricingEngine = new PricingEngine();
         var order = new Order(0.0, 0.0, CustomerType.REGULAR, Destination.INTERNATIONAL, ShippingType.STANDARD, new Date());
         var price = pricingEngine.calculatePrice(order);
         assertThat(price).isEqualTo(5);
+    }
+
+    @Test
+    void calculateRegularInternationalOderByStandard() {
+        var pricingEngine = new PricingEngine();
+        var order = new Order(100.0, 1.5, CustomerType.REGULAR, Destination.INTERNATIONAL, ShippingType.STANDARD, new Date());
+        var price = pricingEngine.calculatePrice(order);
+        assertThat(price).isEqualTo(100.0 + 5.0 + 1.5);
     }
 }
