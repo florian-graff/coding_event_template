@@ -1,15 +1,16 @@
 package com.klosebros.kata;
 
-import java.time.Month;
-
 public class PricingEngine {
 
-    private static final double BULK_DISCOUNT_THRESHOLD = 200.0;
     private static final double MAX_DRONE_WEIGHT_KG = 2.0;
     private static final double LUXURY_TAX_THRESHOLD = 500.0;
 
+    private final BlackFridayDiscountStrategy blackFridayDiscount = new BlackFridayDiscountStrategy();
+    private final BulkDiscountStrategy bulkDiscount = new BulkDiscountStrategy();
+    private final CustomerTypeDiscountStrategy customerTypeDiscount = new CustomerTypeDiscountStrategy();
+
     public double calculatePrice(Order order) {
-        double discount = calculateDiscount(order);
+        double discount = resolveDiscountStrategy(order).calculate(order);
         double shippingCost = calculateShippingCost(order);
         double netPrice = order.basePrice() - discount;
         double tax = calculateTax(order, netPrice);
@@ -17,23 +18,14 @@ public class PricingEngine {
     }
 
     // Priorität: BlackFriday > CustomerType (PREMIUM/VIP) > BulkDiscount (nur REGULAR)
-    private double calculateDiscount(Order order) {
-        if (isBlackFriday(order)) {
-            return order.basePrice() * 0.20;
+    private DiscountStrategy resolveDiscountStrategy(Order order) {
+        if (blackFridayDiscount.appliesTo(order)) {
+            return blackFridayDiscount;
         }
-        return switch (order.customerType()) {
-            case VIP -> order.basePrice() * 0.10;
-            case PREMIUM -> order.basePrice() * 0.05;
-            case REGULAR -> isBulkOrder(order) ? order.basePrice() * 0.15 : 0.0;
-        };
-    }
-
-    private boolean isBlackFriday(Order order) {
-        return order.orderDate().getMonth() == Month.NOVEMBER;
-    }
-
-    private boolean isBulkOrder(Order order) {
-        return order.basePrice() > BULK_DISCOUNT_THRESHOLD;
+        if (bulkDiscount.appliesTo(order)) {
+            return bulkDiscount;
+        }
+        return customerTypeDiscount;
     }
 
     private double calculateShippingCost(Order order) {
