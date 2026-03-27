@@ -85,13 +85,13 @@ src/
 - Not applicable for this kata.
 
 ## Dependencies & Libraries
-| Dependency       | Purpose                          | Scope  |
-|------------------|----------------------------------|--------|
-| JUnit 5          | Test framework                   | test   |
-| AssertJ          | Fluent test assertions           | test   |
-| Mockito          | Mocking framework                | test   |
-| Vavr             | Functional data types & patterns | compile|
-| JaCoCo           | Code coverage reporting          | plugin |
+| Dependency | Purpose                          | Scope   |
+|------------|----------------------------------|---------|
+| JUnit 5    | Test framework                   | test    |
+| AssertJ    | Fluent test assertions           | test    |
+| Mockito    | Mocking framework                | test    |
+| Vavr       | Functional data types & patterns | compile |
+| JaCoCo     | Code coverage reporting          | plugin  |
 
 - Do **not** add unnecessary dependencies — keep it minimal.
 
