@@ -37,6 +37,9 @@ Clean-Code, TDD, SOLID Principles, DRY, KISS, YAGNI
 ## Testing Strategy
 
 - Test first approach
+- Every class must have 100% test coverage. Do everything to achieve that. If you can't achieve 100% coverage ask for help. Don't give up. You can do it.
+- Use JaCoCo to measure test coverage and make sure you have 100% coverage.
+- Run the tests after the refactoring phase
 
 ## Performance Considerations
 
@@ -52,7 +55,7 @@ don't introduce any new dependencies. Use only the standard library and the prov
 
 ## Documentation Guidelines
 
-Write as less documentation as possible. The code should be self-explanatory. If you need to write documentation, keep it concise and to the point. Use emojis to make it more fun.
+Don't write any documentation. The code should be self-explanatory. If you need to explain something, refactor the code until it's clear enough without comments.
 
 ## Do's
 

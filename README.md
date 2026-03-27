@@ -36,34 +36,34 @@ Eine Bestellung (`Order`) besitzt:
 
 ## 💸 Rabattregeln
 
-| Typ            | Regel |
-|----------------|------|
-| Regular        | kein Rabatt |
-| Premium        | 5% Rabatt |
-| VIP            | 10% Rabatt |
-| BlackFriday    | 20% Rabatt im November |
-| BulkDiscount   | 15% Rabatt bei basePrice > 200€ |
+| Typ          | Regel                           |
+|--------------|---------------------------------|
+| Regular      | kein Rabatt                     |
+| Premium      | 5% Rabatt                       |
+| VIP          | 10% Rabatt                      |
+| BlackFriday  | 20% Rabatt im November          |
+| BulkDiscount | 15% Rabatt bei basePrice > 200€ |
 
 ---
 
 ## 🚚 Versandregeln
 
-| Typ        | Regel |
-|------------|------|
-| Standard   | 5€ + 1€/kg |
-| Express    | 10€ + 2€/kg |
-| Pickup     | 0€ |
-| Drone      | 20€ + 5€/kg (max 2kg, sonst Exception) |
+| Typ      | Regel                                  |
+|----------|----------------------------------------|
+| Standard | 5€ + 1€/kg                             |
+| Express  | 10€ + 2€/kg                            |
+| Pickup   | 0€                                     |
+| Drone    | 20€ + 5€/kg (max 2kg, sonst Exception) |
 
 ---
 
 ## 🧾 Steuerregeln
 
-| Ziel          | Regel |
-|---------------|------|
+| Ziel          | Regel    |
+|---------------|----------|
 | LOCAL         | 19% MwSt |
-| EU            | 10% |
-| INTERNATIONAL | 0% |
+| EU            | 10%      |
+| INTERNATIONAL | 0%       |
 
 Zusatzregel:
 - **LuxuryTax**: +5% wenn basePrice > 500€
