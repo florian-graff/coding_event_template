@@ -21,6 +21,13 @@ class DroneShippingStrategyTest {
     }
 
     @Test
+    void should_return30Euros_when_weightIsExactly2Kg() {
+        Order order = new Order(100.0, 2.0, CustomerType.REGULAR, Destination.INTERNATIONAL, ShippingType.DRONE, ANY_DATE);
+
+        assertThat(strategy.calculateShipping(order)).isEqualTo(30.0);
+    }
+
+    @Test
     void should_throwIllegalArgumentException_when_weightExceeds2Kg() {
         Order order = new Order(100.0, 2.1, CustomerType.REGULAR, Destination.INTERNATIONAL, ShippingType.DRONE, ANY_DATE);
 
