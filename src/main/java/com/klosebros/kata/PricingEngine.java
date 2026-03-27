@@ -2,8 +2,6 @@ package com.klosebros.kata;
 
 public class PricingEngine {
 
-    private static final double LUXURY_TAX_THRESHOLD = 500.0;
-
     private final BlackFridayDiscountStrategy blackFridayDiscount = new BlackFridayDiscountStrategy();
     private final BulkDiscountStrategy bulkDiscount = new BulkDiscountStrategy();
     private final CustomerTypeDiscountStrategy customerTypeDiscount = new CustomerTypeDiscountStrategy();
@@ -13,11 +11,17 @@ public class PricingEngine {
     private final ShippingStrategy pickupShipping = new PickupShippingStrategy();
     private final ShippingStrategy droneShipping = new DroneShippingStrategy();
 
+    private final TaxStrategy localTax = new LocalTaxStrategy();
+    private final TaxStrategy euTax = new EuTaxStrategy();
+    private final TaxStrategy internationalTax = new InternationalTaxStrategy();
+    private final TaxStrategy luxuryTax = new LuxuryTaxStrategy();
+
     public double calculatePrice(Order order) {
         double discount = resolveDiscountStrategy(order).calculate(order);
         double shippingCost = resolveShippingStrategy(order).calculate(order);
         double netPrice = order.basePrice() - discount;
-        double tax = calculateTax(order, netPrice);
+        double tax = resolveTaxStrategy(order).calculate(order, netPrice)
+                + luxuryTax.calculate(order, netPrice);
         return netPrice + shippingCost + tax;
     }
 
@@ -41,17 +45,11 @@ public class PricingEngine {
         };
     }
 
-    private double calculateTax(Order order, double netPrice) {
-        double standardTax = netPrice * standardTaxRate(order);
-        double luxuryTax = order.basePrice() > LUXURY_TAX_THRESHOLD ? order.basePrice() * 0.05 : 0.0;
-        return standardTax + luxuryTax;
-    }
-
-    private double standardTaxRate(Order order) {
+    private TaxStrategy resolveTaxStrategy(Order order) {
         return switch (order.destination()) {
-            case LOCAL -> 0.19;
-            case EU -> 0.10;
-            case INTERNATIONAL -> 0.0;
+            case LOCAL -> localTax;
+            case EU -> euTax;
+            case INTERNATIONAL -> internationalTax;
         };
     }
 }
