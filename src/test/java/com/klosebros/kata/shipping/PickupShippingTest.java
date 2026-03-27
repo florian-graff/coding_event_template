@@ -7,7 +7,7 @@ import com.klosebros.kata.ShippingType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PickupShippingTest {
 
     private final PickupShipping strategy = new PickupShipping();
-    private static final LocalDate ANY_DATE = LocalDate.of(2026, 3, 27);
+    private static final LocalDateTime ANY_DATE = LocalDateTime.of(2026, 3, 27, 10, 0);
 
     @Test
     @DisplayName("is always free (0€) regardless of weight")

@@ -7,7 +7,7 @@ import com.klosebros.kata.ShippingType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,8 +16,8 @@ class BlackFridayDiscountTest {
 
     private final BlackFridayDiscount strategy = new BlackFridayDiscount();
 
-    private static final LocalDate NOVEMBER_DATE = LocalDate.of(2026, 11, 15);
-    private static final LocalDate NON_NOVEMBER_DATE = LocalDate.of(2026, 3, 27);
+    private static final LocalDateTime NOVEMBER_DATE     = LocalDateTime.of(2026, 11, 15, 10, 0);
+    private static final LocalDateTime NON_NOVEMBER_DATE = LocalDateTime.of(2026,  3, 27, 10, 0);
 
     @Test
     @DisplayName("returns 20% discount for orders placed in November")

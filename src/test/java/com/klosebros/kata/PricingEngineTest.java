@@ -11,7 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PricingEngineTest {
 
-    private static final LocalDate ANY_DATE = LocalDate.of(2026, 3, 27);
+    private static final LocalDateTime ANY_DATE = LocalDateTime.of(2026, 3, 27, 10, 0);
 
     @Mock private DiscountStrategy discountStrategy;
     @Mock private ShippingStrategy shippingStrategy;

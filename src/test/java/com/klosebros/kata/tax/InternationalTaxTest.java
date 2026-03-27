@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class InternationalTaxTest {
 
     private final InternationalTax strategy = new InternationalTax();
-    private static final LocalDate ANY_DATE = LocalDate.of(2026, 3, 27);
+    private static final LocalDateTime ANY_DATE = LocalDateTime.of(2026, 3, 27, 10, 0);
 
     @ParameterizedTest(name = "discountedPrice = {0}€ → tax = 0€")
     @ValueSource(doubles = {0.0, 100.0, 500.0, 1000.0})

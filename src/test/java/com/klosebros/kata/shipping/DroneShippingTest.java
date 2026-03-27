@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class DroneShippingTest {
 
     private final DroneShipping strategy = new DroneShipping();
-    private static final LocalDate ANY_DATE = LocalDate.of(2026, 3, 27);
+    private static final LocalDateTime ANY_DATE = LocalDateTime.of(2026, 3, 27, 10, 0);
 
     @ParameterizedTest(name = "{0} kg → {1}€")
     @CsvSource({"0.0, 20.0", "1.0, 25.0", "2.0, 30.0"})
