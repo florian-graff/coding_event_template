@@ -1,6 +1,7 @@
 package com.klosebros.kata.tax;
 
 import com.klosebros.kata.Order;
+import com.klosebros.kata.ShippingType;
 import com.klosebros.kata.TaxStrategy;
 
 /**
@@ -9,14 +10,17 @@ import com.klosebros.kata.TaxStrategy;
  *
  * <p>Compose with a destination-based tax via {@link CompositeTaxStrategy}
  * to layer this surcharge on top of the standard tax.</p>
- *
- * <p>TODO Phase 3 – implement the business rule.</p>
  */
 public class ClimateTax implements TaxStrategy {
 
+    private static final double CLIMATE_SURCHARGE = 2.0;
+
     @Override
     public double calculateTax(Order order, double discountedPrice) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (order.shippingType() != ShippingType.EXPRESS) {
+            return 0.0;
+        }
+        return CLIMATE_SURCHARGE;
     }
 }
 
