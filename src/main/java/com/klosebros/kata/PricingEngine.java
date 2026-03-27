@@ -2,16 +2,20 @@ package com.klosebros.kata;
 
 public class PricingEngine {
 
-    private static final double MAX_DRONE_WEIGHT_KG = 2.0;
     private static final double LUXURY_TAX_THRESHOLD = 500.0;
 
     private final BlackFridayDiscountStrategy blackFridayDiscount = new BlackFridayDiscountStrategy();
     private final BulkDiscountStrategy bulkDiscount = new BulkDiscountStrategy();
     private final CustomerTypeDiscountStrategy customerTypeDiscount = new CustomerTypeDiscountStrategy();
 
+    private final ShippingStrategy standardShipping = new StandardShippingStrategy();
+    private final ShippingStrategy expressShipping = new ExpressShippingStrategy();
+    private final ShippingStrategy pickupShipping = new PickupShippingStrategy();
+    private final ShippingStrategy droneShipping = new DroneShippingStrategy();
+
     public double calculatePrice(Order order) {
         double discount = resolveDiscountStrategy(order).calculate(order);
-        double shippingCost = calculateShippingCost(order);
+        double shippingCost = resolveShippingStrategy(order).calculate(order);
         double netPrice = order.basePrice() - discount;
         double tax = calculateTax(order, netPrice);
         return netPrice + shippingCost + tax;
@@ -28,23 +32,13 @@ public class PricingEngine {
         return customerTypeDiscount;
     }
 
-    private double calculateShippingCost(Order order) {
+    private ShippingStrategy resolveShippingStrategy(Order order) {
         return switch (order.shippingType()) {
-            case STANDARD -> 5.0 + 1.0 * order.weightKg();
-            case EXPRESS -> 10.0 + 2.0 * order.weightKg();
-            case PICKUP -> 0.0;
-            case DRONE -> calculateDroneShipping(order);
+            case STANDARD -> standardShipping;
+            case EXPRESS -> expressShipping;
+            case PICKUP -> pickupShipping;
+            case DRONE -> droneShipping;
         };
-    }
-
-    private double calculateDroneShipping(Order order) {
-        if (order.weightKg() > MAX_DRONE_WEIGHT_KG) {
-            throw new IllegalArgumentException(
-                    "Drone-Versand ist auf %.1f kg begrenzt, Bestellung wiegt %.1f kg."
-                            .formatted(MAX_DRONE_WEIGHT_KG, order.weightKg())
-            );
-        }
-        return 20.0 + 5.0 * order.weightKg();
     }
 
     private double calculateTax(Order order, double netPrice) {
