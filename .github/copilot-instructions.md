@@ -108,6 +108,11 @@ src/
 - Keep inline comments minimal — code should be self-explanatory.
 - Update `README.md` if new phases or rules are added.
 
+## Code Coverage
+- Aim for **100% code coverage** on the `PricingEngine` and all strategy implementations.
+- Use JaCoCo to measure and report coverage.
+- Ensure that all business rules are covered by tests.
+
 ## Do's
 - ✅ Write tests **before** implementation (TDD).
 - ✅ Keep the `PricingEngine` free of business logic — delegate to strategies.
