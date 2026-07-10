@@ -7,15 +7,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 class VendingMachineTest {
 
     @Test
-    void deleteThisTest() {
-        assertThat(false).isTrue();
+    void vendingMachine_readyToInsertCoin() {
+        var vendingMachine = new VendingMachine();
+
+        assertThat(vendingMachine.getDisplay()).isEqualTo("GELD EINWERFEN");
     }
 
     @Test
-    void vendingMachine_readyToInsertCoin() {
+    void vendingMachine_insertCoin() {
         var vendingMachine = new VendingMachine();
-        vendingMachine.getDisplay();
+        vendingMachine.insertCoin(Coin.ZEHN_CENT);
 
-        assertThat(vendingMachine.getDisplay()).isEqualTo("GELD EINWERFEN");
+        assertThat(vendingMachine.getDisplay()).isEqualTo("0,10 EURO EINGEWORFEN");
     }
 }
