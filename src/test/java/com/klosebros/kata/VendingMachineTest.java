@@ -38,4 +38,14 @@ class VendingMachineTest {
         assertThat(coins).containsExactly(Coin.ZEHN_CENT);
         assertThat(vendingMachine.getDisplay()).isEqualTo("GELD EINWERFEN");
     }
+
+    @Test
+    void itemGetReturned_ifEnoughCoinsInserted() {
+        var vendingMachine = new VendingMachine();
+        for (int i = 0; i < 20; i++) {
+            vendingMachine.insertCoin(Coin.ZEHN_CENT);
+        }
+        vendingMachine.selectProduct(Product.COLA);
+        assertThat(vendingMachine.getDisplay()).isEqualTo("VIELEN DANK");
+    }
 }

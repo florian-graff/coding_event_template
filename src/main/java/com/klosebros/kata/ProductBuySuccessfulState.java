@@ -1,10 +1,9 @@
 package com.klosebros.kata;
 
-public class NoCoinsState implements State {
-
+public class ProductBuySuccessfulState implements State {
     @Override
     public String getDisplay() {
-        return "GELD EINWERFEN";
+        return "VIELEN DANK";
     }
 
     @Override

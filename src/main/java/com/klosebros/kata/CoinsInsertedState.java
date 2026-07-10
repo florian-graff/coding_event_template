@@ -22,4 +22,9 @@ public class CoinsInsertedState implements State {
             return BAD_COIN;
         }
     }
+
+    @Override
+    public void selectProduct(Product product) {
+        //check amount for product
+    }
 }

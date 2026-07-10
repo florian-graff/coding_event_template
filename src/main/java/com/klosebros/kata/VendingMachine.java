@@ -23,4 +23,9 @@ public class VendingMachine {
         state = new NoCoinsState();
         return returnedCoins;
     }
+
+    public void selectProduct(Product product) {
+        state.selectProduct(product);
+        state = new ProductBuySuccessfulState();
+    }
 }
