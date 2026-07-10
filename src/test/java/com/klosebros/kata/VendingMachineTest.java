@@ -14,11 +14,19 @@ class VendingMachineTest {
     }
 
     @Test
-    void vendingMachine_insertCoin() {
+    void vendingMachine_insertCoinZehnCent() {
         var vendingMachine = new VendingMachine();
         vendingMachine.insertCoin(Coin.ZEHN_CENT);
 
         assertThat(vendingMachine.getDisplay()).isEqualTo("0,10 EURO EINGEWORFEN");
+    }
+
+    @Test
+    void vendingMachine_insertCoinZwanzigCent() {
+        var vendingMachine = new VendingMachine();
+        vendingMachine.insertCoin(Coin.ZWANZIG_CENT);
+
+        assertThat(vendingMachine.getDisplay()).isEqualTo("0,20 EURO EINGEWORFEN");
     }
 
     @Test

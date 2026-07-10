@@ -5,21 +5,22 @@ import java.util.List;
 
 public class VendingMachine {
 
-    private static final String INSERT_COIN = "GELD EINWERFEN";
-    private String display = INSERT_COIN;
-    private List<Coin> coins = new ArrayList<>();
+    private final List<Coin> coins = new ArrayList<>();
+    private State state = new NoCoinsState();
 
     public String getDisplay() {
-        return display;
+        return state.getDisplay();
     }
 
     public void insertCoin(Coin coin) {
         coins.add(coin);
-        display = "0,10 EURO EINGEWORFEN";
+        state = new CoinsInsertedState(coins);
     }
 
     public List<Coin> returnCoins() {
-        display = INSERT_COIN;
-        return coins;
+        List<Coin> returnedCoins = new ArrayList<>(coins);
+        coins.clear();
+        state = new NoCoinsState();
+        return returnedCoins;
     }
 }
